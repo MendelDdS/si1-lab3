@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>The Quick Ad Music - Cadastro</title>
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.css")"/>
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/font-awesome.css")"/>
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/style.css")"/>
+
+</head>
+<body>
+
+	<div class="navbar navbar-inverse set-radius-zero">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="@routes.Application.index()"> <img
+					src="@routes.Assets.at("images/logo.png")" />
+				</a>
+
+			</div>
+
+			<div class="left-div">
+				<div class="user-settings-wrapper">
+					<ul class="nav">
+
+						<li class="dropdown"><a href="@routes.Application.cadastro()">
+								<span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- LOGO HEADER END-->
+	<section class="menu-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="navbar-collapse collapse ">
+						<ul id="menu-top" class="nav navbar-nav navbar-right">
+							<li><a href="@routes.Application.index()">Home</a></li>
+							<li><a class="menu-top-active"
+								href="@routes.Application.cadastro()">Cadastrar</a></li>
+							<li><a href="@routes.Application.sobre()">Sobre</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- MENU SECTION END-->
+	<div class="content-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="page-head-line">
+						Cadastro de anúncio <span class="glyphicon glyphicon-th-list"
+							aria-hidden="true"></span>
+					</h1>
+				</div>
+			</div>
+			<div class="row">
+				<form action="@routes.Application.novoAnuncio()" method="post">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="panel panel-default">
+							<div class="panel-heading">Informações do Anúncio</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label><font color="#B22222">* Campos
+											obrigatórios</font></label>
+									<div class="form-group">
+										<label for="inputTitulo">Título <font color="#B22222">*</font></label>
+										<input name="titulo" type="text" SIZE=50 MAXLENGTH=50
+											class="form-control" id="inputTitulo"
+											placeholder="Dê um título ao seu anuncio" required
+											pattern=".*\S+.*">
+									</div>
+
+									<div class="form-group">
+										<label for="inputDescricao">Descrição <font
+											color="#B22222">*</font></label>
+										<textarea name="descricao" SIZE=150 MAXLENGTH=150
+											class="form-control" id="inputDescricao"
+											placeholder="Descreva seu anúncio, no máximo 150 caracteres "
+											required pattern=".*\S+.*"></textarea>
+									</div>
+
+									<div class="form-group">
+										<label for="inputCidade">Cidade <font color="#B22222">*</font></label>
+										<input name="cidade" type="text" class="form-control"
+											id="inputCidade"
+											placeholder="Qual sua cidade? Ex.: Campina Grade" required
+											pattern=".*\S+.*">
+									</div>
+
+									<div class="form-group">
+										<label for="inputBairro">Bairro <font color="#B22222">*</font></label>
+										<input name="bairro" type="text" class="form-control"
+											id="inputBairro" placeholder="Qual seu bairro? Ex.: Centro"
+											required pattern=".*\S+.*">
+									</div>
+									<div class="form-group">
+										<label for="inputEmail">E-mail <font color="#B22222">*</font></label>
+										<input name="email" type="email" class="form-control"
+											id="inputEmail" placeholder="Exemplo: gmail.com" required
+											pattern=".*\S+.*">
+									</div>
+
+									<div class="form-group">
+										<label for="inputFacebook">Facebook <font
+											color="#B22222">*</font></label> <input name="facebook" type="text"
+											class="form-control" id="inputFacebook"
+											placeholder="Exemplo: https://www.facebook.com/perfil"
+											required pattern=".*\S+.*">
+									</div>
+
+									<div class="form-group">
+										<label>Interesse <font color="#B22222">*</font></label>
+										<div class="radio">
+											<label> <input type="radio" name="interesse"
+												id="inputContatos1" value="Banda" required> Formar
+												uma banda
+											</label>
+										</div>
+
+										<div class="radio">
+											<label> <input type="radio" name="interesse"
+												id="inputContatos2" value="Ocasionalmente" required>
+												Tocar ocasionalmente
+											</label>
+										</div>
+
+										<div class="form-group">
+											<label for="inputPalavraChave">Palavra-Chave <font
+												color="#B22222">*</font></label> <input name="palavraChave"
+												type="password" SIZE=50 MAXLENGTH=50 class="form-control"
+												id="inputPalavraChave"
+												placeholder="Dê um título ao seu anuncio" required
+												pattern=".*\S+.*">
+										</div>
+									</div>
+								</div>
+								<div class="panel-heading">Suas informações</div>
+								<div class="form-group">
+									<label>Instrumentos que você toca <font color="#B22222">*</font></label>
+									<input name="instrumentos" type="text" class="form-control"
+										id="inputInstrumentos"
+										placeholder="Quais instrumentos você toca? Separe-os com vírgula (,)"
+										required pattern=".*\S+.*">
+								</div>
+								<hr />
+								<div class="form-group">
+									<label>Estilos musicais que você gosta</label> <input
+										name="estilosGosta" type="text" class="form-control"
+										id="inputEstilosGosta"
+										placeholder="Quais estilos músicais você gosta? Separe-os com vírgula (,)">
+								</div>
+								<hr />
+								<div class="form-group">
+									<label>Estilos musicais que você não gosta</label> <input
+										name="estilosNaoGosta" type="text" class="form-control"
+										id="inputEstilosNaoGosta"
+										placeholder="Quais estilos músicais você não gosta? Separe-os com vírgula (,)">
+								</div>
+								<button name="finalizar" type="submit" class="btn btn-danger" aria-label="Left Align">Finalizar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<!-- CONTENT-WRAPPER SECTION END-->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					&copy; Mendelssohn Dantas de Sá | By : <a
+						href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+	<!-- FOOTER SECTION END-->
+	<!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+	<!-- CORE JQUERY SCRIPTS -->
+	<script src="@routes.Assets.at("javascripts/jquery-1.11.1.js")"></script>
+	<!-- BOOTSTRAP SCRIPTS  -->
+	<script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+	<script src="@routes.Assets.at("javascripts/index.js")"></script>
+	
+</body>
+</html>

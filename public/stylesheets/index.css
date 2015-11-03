@@ -1,0 +1,51 @@
+#homeMessage {
+    text-align: center;
+}
+
+#barraBusca {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#barraBusca p {
+    width: 300px;
+    margin: 0 auto;
+}
+
+#erroAlerta {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.anuncioTitulo {
+    font-weight: bold;
+    text-align: center;
+}
+
+.finalizarAnuncio {
+    text-decoration: none !important;
+    color: green;
+}
+
+.finalizarAnuncio:hover {
+    color: green;
+}
+
+.anuncio {
+    border: 1px solid darkgrey;
+    width: 360px;
+    float: left;
+    margin: 10px;
+    text-align: justify;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button:focus {
+    outline: none !important;
+}

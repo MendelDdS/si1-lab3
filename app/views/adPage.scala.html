@@ -1,0 +1,221 @@
+@(anuncio: Anuncio)
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TQAM - @anuncio.getTitulo()</title>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.css")"/>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/font-awesome.css")"/>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/style.css")"/>
+
+</head>
+</head>
+<body>
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@routes.Application.index()">
+                    <img src="@routes.Assets.at("images/logo.png")" />
+                </a>
+
+            </div>
+
+            <div class="left-div">
+                <div class="user-settings-wrapper">
+                    <ul class="nav">
+
+                        <li class="dropdown">
+							<a href="@routes.Application.cadastro()">
+                               <span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span>
+                            </a>
+                         </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LOGO HEADER END-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="@routes.Application.index()">Home</a></li>
+                            <li><a href="@routes.Application.cadastro()">Cadastrar</a></li>
+                            <li><a href="@routes.Application.sobre()">Sobre</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- MENU SECTION END-->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="page-head-line">@anuncio.getTitulo()<p class="pull-right"><small>Criado em: @anuncio.getDateFormat()</small></p></h4>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning">
+                        <p>@anuncio.getDescricao()</p>
+							<div class="clearfix"></div>
+							<hr>
+
+							<p>
+								<strong>Cidade:</strong> @anuncio.getCidade()
+							</p>
+							<p>
+								<strong>Bairro:</strong> @anuncio.getBairro()
+							</p>
+
+							<p>
+								<strong>Contatos:</strong> @anuncio.getEmail(),
+								@anuncio.getFacebook()
+							</p>
+							<p class="anuncioInteresse">
+								<strong>Interesse:</strong> @anuncio.getInteresse()
+							</p>
+
+							<p class="anuncioInstrumentos">
+								<strong>Instrumentos:</strong> @anuncio.getInstrumentos()
+							</p>
+
+							@if(!anuncio.isEstilosGostaEmpty) {
+							<p class="anuncioEstilos">
+								<strong>Estilos que gosta:</strong> @anuncio.getEstilosGosta()
+							</p>
+							} @if(!anuncio.isEstilosNaoGostaEmpty) {
+							<p>
+								<strong>Estilos que não gosta:</strong>
+								@anuncio.getEstilosNaoGosta()
+							</p>
+							}
+							<hr>
+
+
+							<form action="@routes.Application.fazerPergunta(anuncio.getId())"
+								method="POST">
+								<div class="input-group">
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-default">
+											<i class="glyphicon glyphicon-share"></i>
+										</button>
+									</div>
+									<input name="pergunta" type="text" class="form-control"
+										placeholder="Faça uma pergunta" required pattern=".*\S+.*">
+								</div>
+							</form>
+
+							<hr>
+
+							@for(conversa <- anuncio.getConversas()) { 
+							<a href="" data-toggle="modal" data-target="#abusivoModal@conversa.getId()"
+								class="pull-right comentarioAbusivo"><p	style="font-size: 10px;">Abusivo</p></a>
+							<div class="modal fade " id="abusivoModal@conversa.getId()">
+								<div class="modal-dialog style="width: 50%"">
+									<div class="modal-content col-md-6 col-sm-2">
+										<div class="modal-body">
+											<form action="@routes.Application.comentarioAbusivo(conversa.getId(), anuncio.getId())"	method="POST">
+												<label>Este comentário é abusivo?</label>
+												<button type="submit" class="btn btn-primary">Sim</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							@if(conversa.getPergunta() != null) {
+							<div class="pergunta">
+								<p>
+									<strong>Anônimo:</strong> @conversa.getPergunta()
+								</p>
+							</div>
+
+							@if(conversa.getResposta == null) { <a href=""
+								data-toggle="modal"
+								data-target="#responderModal@conversa.getId()"
+								class="responderComentario">Responder</a>
+
+							<div class="modal fade" id="responderModal@conversa.getId()">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<h4 class="modal-title">Resposta</h4>
+										</div>
+
+										<div class="modal-body">
+											<form
+												action="@routes.Application.responderPergunta(conversa.getId(), anuncio.getId())"
+												method="POST">
+												<div class="form-group">
+													<label for="inputPalavraChave">Palavra-Chave</label> <input
+														name="palavraChave" type="text" class="form-control"
+														id="inputPalavraChave" placeholder="Código do seu anúncio"
+														required pattern=".*\S+.*">
+												</div>
+
+												<div class="form-group">
+													<label>Resposta</label> <input name="resposta" type="text"
+														class="form-control" id="inputResposta"
+														placeholder="Sua resposta" required pattern=".*\S+.*">
+												</div>
+
+												<button type="submit" class="btn btn-primary">Responder</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							} } @if(conversa.getResposta != null) {
+							<div class="resposta">
+								<strong>Anunciante:</strong> @conversa.getResposta()
+							</div>
+							}
+							<hr>
+							}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; Mendelssohn Dantas de Sá | By : <a href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+        <!-- FOOTER SECTION END-->
+        <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+        <!-- CORE JQUERY SCRIPTS -->
+    <script src="@routes.Assets.at("javascripts/jquery-1.11.1.js")"></script>
+        <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+</body>
+</html>

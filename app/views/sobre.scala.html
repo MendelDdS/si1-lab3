@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The Quick Ad Musical</title>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.css")"/>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/font-awesome.css")"/>
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/style.css")"/>
+
+</head>
+</head>
+<body>
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@routes.Application.index()">
+                    <img src="@routes.Assets.at("images/logo.png")" />
+                </a>
+
+            </div>
+
+            <div class="left-div">
+                <div class="user-settings-wrapper">
+                    <ul class="nav">
+
+                        <li class="dropdown">
+							<a href="@routes.Application.cadastro()">
+                               <span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span>
+                            </a>
+                         </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LOGO HEADER END-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="@routes.Application.index()">Home</a></li>
+                            <li><a href="@routes.Application.cadastro()">Cadastrar</a></li>
+                            <li><a class="menu-top-active" href="@routes.Application.sobre()">Sobre</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- MENU SECTION END-->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="page-head-line">Blank Page</h4>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning">
+                        Este site foi criado como atividade a disciplina de Sistema da Informação 1 - UFCG
+                        </br>
+                        Desenvolvedor: Mendelssohn Dantas de Sá
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; Mendelssohn Dantas de Sá | By : <a href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+        <!-- FOOTER SECTION END-->
+        <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+        <!-- CORE JQUERY SCRIPTS -->
+    <script src="@routes.Assets.at("javascripts/jquery-1.11.1.js")"></script>
+        <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+</body>
+</html>
