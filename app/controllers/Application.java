@@ -71,6 +71,7 @@ public class Application extends Controller {
             return ok(index.render(atualizado, true, adsHelped));
         }
     }
+    
     @Transactional
     public static Result fazerPergunta(Long id) {
         Form<String> formPerguntaPreenchido = formFinish.bindFromRequest();

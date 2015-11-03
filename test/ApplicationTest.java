@@ -1,8 +1,15 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 import javax.persistence.EntityManager;
+
 import org.junit.*;
+
 import controllers.Application;
+import models.Anuncio;
+import models.Comentario;
+import models.DAO.GenericDAO;
 import play.db.jpa.JPA;
 import play.db.jpa.JPAPlugin;
 import play.mvc.Result;
@@ -25,6 +32,7 @@ import static org.fest.assertions.Assertions.*;
 public class ApplicationTest {
 	private EntityManager entityManager;
 	private static FakeApplication fake;
+    private GenericDAO DAO = new GenericDAO();
 
 	@BeforeClass
 	public static void startApp() {
@@ -32,6 +40,11 @@ public class ApplicationTest {
 		Helpers.start(fake);
 	}
 
+    @AfterClass
+    public static void stopApp() {
+        Helpers.stop(fake);
+    }
+    
 	@Before
 	public void setUp() {
         Option<JPAPlugin> jpaPlugin = fake.getWrappedApplication().plugin(JPAPlugin.class);
@@ -41,13 +54,13 @@ public class ApplicationTest {
 	}
 	
 	@Test
-	public void renderIndex() {
+	public void deveCarregarIndex() {
 		Result result = Application.index();
 		assertThat(status(result)).isEqualTo(OK);
 	}
 	
 	@Test
-	public void renderPublique() {
+	public void deveCarregarCadastro() {
 		Result result = callAction(controllers.routes.ref.Application.cadastro(), new FakeRequest());
 		assertThat(status(result)).isEqualTo(OK);
 	}
@@ -69,7 +82,7 @@ public class ApplicationTest {
 		
 		FakeRequest fakeRequest = new FakeRequest().withFormUrlEncodedBody(requestMap);
 		Result resultPost = callAction(controllers.routes.ref.Application.novoAnuncio(), fakeRequest);
-		assertThat(status(resultPost)).isEqualTo(SEE_OTHER);
+		assertThat(status(resultPost)).isEqualTo(OK);
 		
 		Result resultGet = callAction(controllers.routes.ref.Application.index(), new FakeRequest());
 		assertThat(status(resultGet)).isEqualTo(OK);
@@ -77,19 +90,36 @@ public class ApplicationTest {
 		assertThat(contentAsString(resultGet)).contains("TituloTest");
 		
 	}
+	
+	@Test
+    public void testeFazerPerguntaEResposta() {
+        List<Anuncio> anuncios = DAO.findAllByClass(Anuncio.class);
+        Anuncio anuncioTest = anuncios.get(0);
 
-    @Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
+        Map<String, String> requestMap = new HashMap<>();
+        requestMap.put("pergunta", "Testando pergunta");
+
+        FakeRequest fakeRequest = new FakeRequest().withFormUrlEncodedBody(requestMap);
+        Result resultPost = callAction(controllers.routes.ref.Application.fazerPergunta(anuncioTest.getId()), fakeRequest);
+        assertThat(status(resultPost)).isEqualTo(OK);
+        assertThat(contentAsString(resultPost)).contains("Testando pergunta");
+
+        Comentario conversa = anuncioTest.getConversas().get(0);
+
+        Map<String, String> requestMap2 = new HashMap<>();
+        requestMap2.put("resposta", "Testando pergunta");
+        requestMap2.put("palavraChave", "1231");
+
+        FakeRequest fakeRequest2 = new FakeRequest().withFormUrlEncodedBody(requestMap2);
+        Result resultPost2 = callAction(controllers.routes.ref.Application.responderPergunta(conversa.getId(), anuncioTest.getId()), fakeRequest2);
+        assertThat(status(resultPost2)).isEqualTo(OK);
+        assertThat(contentAsString(resultPost2)).contains("Testando pergunta");
     }
 
-    /*@Test
-    public void renderTemplate() {
-        Content html = views.html.index.render(null, null, null);
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
-    }*/
-
-
+    @After
+    public void tearDown() {
+    	entityManager.getTransaction().commit();
+        JPA.bindForCurrentThread(null);
+        entityManager.close();
+    }
 }
